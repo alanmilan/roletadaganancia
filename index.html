@@ -160,10 +160,23 @@
     footer a:hover {
       text-decoration: underline;
     }
+    
+    .logo-roleta {
+      width: 300px;
+      margin-bottom: 25px;
+      margin-top: -5px;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+      transition: transform 0.3s ease;
+}
+
+.logo-roleta:hover {
+  transform: scale(1.05);
+}
   </style>
 </head>
 <body>
-  <h1>ROLETA DA GANÂNCIA</h1>
+    <img src="roletalogo.png" alt="Logo Roleta da Ganância" class="logo-roleta" />
+    <h1>ROLETA DA GANÂNCIA</h1>
 
   <div class="roleta-container">
     <div class="roleta" id="roleta"></div>
