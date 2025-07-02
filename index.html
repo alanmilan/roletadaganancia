@@ -47,20 +47,22 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: bold;
       padding: 15px;
       box-sizing: border-box;
       flex-shrink: 0;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
 
     .item img {
       display: block;
-      max-height: 80px;
+      max-height: 70px;
       object-fit: contain;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .item.highlight {
@@ -85,33 +87,46 @@
 
     .premios-barra {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
+      justify-content: space-between;
+      flex-wrap: nowrap;
       background: #0c0c1f;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 10px 20px;
+      border-radius: 12px;
       margin-top: 25px;
       max-width: 900px;
+      width: 100%;
+      box-sizing: border-box;
+      gap: 10px;
+      overflow: hidden;
     }
 
     .premio-box {
+      flex: 1;
       font-size: 15px;
       font-weight: bold;
-      padding: 8px 14px;
+      padding: 10px;
       border-radius: 10px;
       text-align: center;
       color: #fff;
-      min-width: 100px;
+      min-width: 0;
+      white-space: nowrap;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .premio-box small {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 5px;
     }
 
     .repick { background: #e74c3c; }
     .p125 { background: #3498db; }
+    .p150 { background: #2ecc71; }
     .fever { background: #27ae60; }
     .p250 { background: #2980b9; }
     .p300 { background: #9b59b6; }
-    .cs2 { background: #f1c40f; }
+    .cs2 { background: #f1c40f; color: #000; }
 
     button {
       margin: 20px;
@@ -144,7 +159,6 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    
     footer {
       margin-top: 40px;
       padding: 20px 0;
@@ -160,23 +174,31 @@
     footer a:hover {
       text-decoration: underline;
     }
-    
+
     .logo-roleta {
       width: 350px;
       margin-bottom: 25px;
       margin-top: -5px;
       filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
       transition: transform 0.3s ease;
-}
+    }
 
-.logo-roleta:hover {
-  transform: scale(1.05);
-}
+    .logo-roleta:hover {
+      transform: scale(1.05);
+    }
+
+    .premios-barra::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .premios-barra::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
-    <img src="roletalogo.png" alt="Logo Roleta da Ganância" class="logo-roleta" />
-    
+  <img src="roletalogo.png" alt="Logo Roleta da Ganância" class="logo-roleta" />
   <div class="roleta-container">
     <div class="roleta" id="roleta"></div>
     <div class="roleta-pointer"></div>
@@ -185,14 +207,14 @@
   <div class="premios-barra">
     <div class="premio-box repick">🔄 REPICK<br><small>1%</small></div>
     <div class="premio-box p125">😭 $125<br><small>15%</small></div>
-    <div class="premio-box fever">🔪 FEVER KNIFE<br><small>50%</small></div>
-    <div class="premio-box p250">💰 $250<br><small>30%</small></div>
+    <div class="premio-box p150">💸 $150<br><small>20%</small></div>
+    <div class="premio-box fever">FEVER KNIFE <br> 🔪 <br>40%</div>
+    <div class="premio-box p250">💰 $250<br><small>20%</small></div>
     <div class="premio-box p300">💎 $300<br><small>4%</small></div>
     <div class="premio-box cs2">👑 CS2KNIFE<br><small>1%</small></div>
   </div>
 
   <button id="spinBtn">Girar Roleta</button>
-
   <h2 id="resultado"></h2>
   <p id="probReal"></p>
 
@@ -201,12 +223,13 @@
 
   <script>
     const premios = [
-      { valor: "REPICK", prob: 0.009, emoji: "🔄 REPICK", img: "repick.png" },
-      { valor: 125, prob: 0.141, emoji: "😭 $125", img: "125.png" },
-      { valor: 210, prob: 0.5, emoji: "🔪 FEVER KNIFE", img: "feverknife.jpg" },
-      { valor: 250, prob: 0.3, emoji: "💰 $250", img: "250.png" },
-      { valor: 300, prob: 0.039, emoji: "💎 $300", img: "300.png" },
-      { valor: 355, prob: 0.011, emoji: "👑 CS2KNIFE", img: "cs2knife.jpg" }
+      { valor: "REPICK", prob: 0.01, emoji: "🔄 REPICK", img: "repick.png" },
+      { valor: 125, prob: 0.15, emoji: "😭 $125", img: "125.png" },
+      { valor: 150, prob: 0.20, emoji: "💸 $150", img: "150.png" },
+      { valor: 210, prob: 0.40, emoji: "🔪 FEVER KNIFE", img: "feverknife.jpg" },
+      { valor: 250, prob: 0.20, emoji: "💰 $250", img: "250.png" },
+      { valor: 300, prob: 0.04, emoji: "💎 $300", img: "300.png" },
+      { valor: 420, prob: 0.01, emoji: "👑 CS2KNIFE", img: "cs2knife.jpg" }
     ];
 
     const roleta = document.getElementById("roleta");
